@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="14868" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+    <device id="watch44"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="14643"/>
+    </dependencies>
+    <scenes>
+        <!--Interface Controller-->
+        <scene sceneID="aou-V4-d1y">
+            <objects>
+                <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="SeaArkTimer_WatchApp_WatchKit_App" customModuleProvider="target">
+                    <items>
+                        <switch width="1" alignment="left" title="Power" id="HQg-ur-Glx">
+                            <connections>
+                                <action selector="powerSwitch:" destination="AgC-eL-Hgc" id="xUu-DC-0G7"/>
+                            </connections>
+                        </switch>
+                        <slider width="1" alignment="left" value="1" minimum="1" maximum="3" steps="3" id="cnJ-86-Tus">
+                            <connections>
+                                <action selector="onTimeSettingChange:" destination="AgC-eL-Hgc" id="Hr8-bd-bI4"/>
+                            </connections>
+                        </slider>
+                        <slider width="1" alignment="left" value="1" minimum="1" maximum="3" steps="3" id="FIv-cS-fSI">
+                            <connections>
+                                <action selector="offTimeSettingChange:" destination="AgC-eL-Hgc" id="oHO-qX-ARL"/>
+                            </connections>
+                        </slider>
+                        <label width="0.59999999999999998" height="0.29999999999999999" alignment="center" verticalAlignment="bottom" text="0" textAlignment="center" id="8V5-rX-gTr">
+                            <fontDescription key="font" style="UICTFontTextStyleTitle0"/>
+                        </label>
+                    </items>
+                    <connections>
+                        <outlet property="offTimerSettingSlider" destination="FIv-cS-fSI" id="neQ-ia-IRk"/>
+                        <outlet property="onTimerSettingSlider" destination="cnJ-86-Tus" id="zvX-8J-gUh"/>
+                        <outlet property="powerSwitch" destination="HQg-ur-Glx" id="H9C-oX-vWW"/>
+                        <outlet property="timerValueLabel" destination="8V5-rX-gTr" id="5Py-W1-sun"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="220" y="345"/>
+        </scene>
+    </scenes>
+</document>
