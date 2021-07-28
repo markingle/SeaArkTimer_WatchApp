@@ -49,7 +49,7 @@ class InterfaceController: WKInterfaceController {
             isOn = value
             if value {
                 WKInterfaceDevice.current().play(.click)
-                powerSwitch.setTitle("Power is On")
+                powerSwitch.setTitle("Timer is On")
                 print("On")
                 let SwitchState = "1"
                 let data = Data(SwitchState.utf8)
@@ -57,7 +57,7 @@ class InterfaceController: WKInterfaceController {
                 writeonStateValueToChar(withCharacteristic: powerState!, withValue: data)
             } else {
                 WKInterfaceDevice.current().play(.click)
-                powerSwitch.setTitle("Power is Off")
+                powerSwitch.setTitle("Timer is Off")
                 print("Off")
                 let SwitchState = "0"
                 let data = Data(SwitchState.utf8)
@@ -112,6 +112,9 @@ class InterfaceController: WKInterfaceController {
     func scan() {
       centralManager.scanForPeripherals(withServices: [Livewell_Timer_Service_CBUUID])
         print("Scanning For Peripherals")
+        powerSwitch.setEnabled(false)
+        onTimerSettingSlider.setEnabled(false)
+        offTimerSettingSlider.setEnabled(false)
         powerSwitch.setTitle("Scanning...")
     }
 
@@ -186,6 +189,9 @@ extension InterfaceController: CBCentralManagerDelegate, CBPeripheralDelegate {
       
       // STEP 6: connect to the discovered peripheral of interest
       centralManager?.connect(SeaArkLivewellTimer!)
+      powerSwitch.setEnabled(true)
+      onTimerSettingSlider.setEnabled(true)
+      offTimerSettingSlider.setEnabled(true)
       
   } // END func centralManager(... didDiscover peripheral
 
@@ -203,7 +209,10 @@ extension InterfaceController: CBCentralManagerDelegate, CBPeripheralDelegate {
   }
 
   func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
-    powerSwitch.setTitle("Scanning...")
+    powerSwitch.setEnabled(false)
+    onTimerSettingSlider.setEnabled(false)
+    offTimerSettingSlider.setEnabled(false)
+    powerSwitch.setTitle("DX..Scanning")
     powerSwitch.setOn(false)
     centralManager?.scanForPeripherals(withServices: [Livewell_Timer_Service_CBUUID])
     print("Central Manager Looking!!")
@@ -235,6 +244,7 @@ extension InterfaceController: CBCentralManagerDelegate, CBPeripheralDelegate {
             if characteristic.uuid == Livewell_OnOff_Switch_Characteristic_CBUUID{
                 print("Power State")
                 powerState = characteristic
+                peripheral.setNotifyValue(true, for: characteristic)
             }
             if characteristic.uuid == Livewell_OFFTIME_Characteristic_CBUUID{
                 print("OFFTIME Found")
@@ -274,5 +284,25 @@ extension InterfaceController: CBCentralManagerDelegate, CBPeripheralDelegate {
                             }
         } // END if characteristic.uuid ==...
         
+        if characteristic.uuid == Livewell_OnOff_Switch_Characteristic_CBUUID {
+            
+            // STEP 14: we generally have to decode BLE
+            // data into human readable format
+            let Recieved_Switch_State = [UInt8](characteristic.value!)
+            
+            print("Power State", Recieved_Switch_State[0])
+
+            DispatchQueue.main.async { () -> Void in
+                if Recieved_Switch_State[0] == 1 {
+                    self.powerSwitch.setEnabled(true)
+                    self.powerSwitch.setOn(true)
+                    self.powerSwitch.setTitle("Timer is ON")
+                } else {
+                    self.powerSwitch.setTitle("Timer is OFF")
+                }
+            }
+        } // END if characteristic.uuid ==...
+        
     } // END func peripheral(... didUpdateValueFor characteristic
+
 }

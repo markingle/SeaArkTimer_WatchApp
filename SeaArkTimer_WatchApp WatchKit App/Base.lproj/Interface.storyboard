@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="14868" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="18122" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
     <device id="watch44"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="14643"/>
+        <deployment identifier="watchOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="18022"/>
     </dependencies>
     <scenes>
         <!--Interface Controller-->
@@ -16,12 +17,12 @@
                                 <action selector="powerSwitch:" destination="AgC-eL-Hgc" id="xUu-DC-0G7"/>
                             </connections>
                         </switch>
-                        <slider width="1" alignment="left" value="1" minimum="1" maximum="3" steps="3" id="cnJ-86-Tus">
+                        <slider width="1" alignment="left" value="10" maximum="30" steps="3" id="cnJ-86-Tus">
                             <connections>
                                 <action selector="onTimeSettingChange:" destination="AgC-eL-Hgc" id="Hr8-bd-bI4"/>
                             </connections>
                         </slider>
-                        <slider width="1" alignment="left" value="1" minimum="1" maximum="3" steps="3" id="FIv-cS-fSI">
+                        <slider width="1" alignment="left" value="10" maximum="30" steps="3" id="FIv-cS-fSI">
                             <connections>
                                 <action selector="offTimeSettingChange:" destination="AgC-eL-Hgc" id="oHO-qX-ARL"/>
                             </connections>
